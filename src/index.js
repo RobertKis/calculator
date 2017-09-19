@@ -6,14 +6,14 @@ import ReduxPromise from 'redux-promise';
 import { StyleRoot } from 'radium';
 
 import App from './components/app';
-// import reducers from './reducers';
+import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 ReactDOM.render(
-  // <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={createStoreWithMiddleware(reducers)}>
     <StyleRoot>
       <App />
     </StyleRoot>
-  // </Provider>
+  </Provider>
   , document.querySelector('.container'));
