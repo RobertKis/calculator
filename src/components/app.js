@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Amount from '../containers/Amount';
 import Term from '../containers/Term';
+import OfferDetails from '../containers/offerDetails';
 
 export default class App extends Component {
   render() {
@@ -8,6 +9,7 @@ export default class App extends Component {
       <div>
         <Amount />
         <Term />
+        <OfferDetails />
       </div>
     );
   }

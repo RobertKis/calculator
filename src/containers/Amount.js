@@ -3,29 +3,25 @@ import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { readFromConfig } from '../actions/index';
-import { setPosition } from '../actions/index';
+import { setPosition, calculateOffer } from '../actions/index';
 
 @connect(
   ({ reset, position }) => ({
     data: reset.get('data'),
     currentPosition: position.get('amount')
   }),
-  dispatch => bindActionCreators({ readFromConfig, setPosition}, dispatch)
+  dispatch => bindActionCreators({ readFromConfig, calculateOffer, setPosition}, dispatch)
 )
 export default class Amount extends React.Component {
   
   constructor(props, context) {
-    console.log("sonstructor")
     super(props, context)
       this.props.readFromConfig();
     }
 
   handleOnChange = (value) => {
     this.props.setPosition(value);
-  }
-
-  handleChangetxt(e){
-    this.props.setPosition(e.target.value);
+    this.props.calculateOffer(this.props.data.amountInterval.defaultValue);
   }
 
   render() {
@@ -36,9 +32,8 @@ export default class Amount extends React.Component {
     if(this.props.data){
        const { data } = this.props;
        const position = this.props.currentPosition;
-       
-       console.log("position")
-       console.log(position)
+
+
        skale = position || data.amountInterval.defaultValue;
        min = data.amountInterval.min
        max = data.amountInterval.max
@@ -48,7 +43,7 @@ export default class Amount extends React.Component {
     return(
          <div id="slidecontainer" >
          <h1>Amount</h1>
-         <input type="text" value={skale} onChange={this.handleChangetxt.bind(this)}/>
+         <input type="text" value={skale} onChange={e => this.handleOnChange(e.target.value)}/>
          
            <Slider
             value={skale}
